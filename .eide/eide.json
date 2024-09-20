@@ -18,6 +18,21 @@
           },
           {
             "path": "STC8G.h"
+          },
+          {
+            "path": "Type_def.h"
+          },
+          {
+            "path": "Config.h"
+          },
+          {
+            "path": "OLED_CONT.h"
+          },
+          {
+            "path": "OLED.c"
+          },
+          {
+            "path": "OLED.h"
           }
         ],
         "folders": []
@@ -32,7 +47,9 @@
   },
   "targets": {
     "Target 1": {
-      "excludeList": [],
+      "excludeList": [
+        "<virtual_root>/Source Group 1/I2C.c"
+      ],
       "toolchain": "Keil_C51",
       "compileConfig": {
         "options": "null"
@@ -58,7 +75,7 @@
           "beforeBuildTasks": [],
           "afterBuildTasks": [],
           "global": {
-            "ram-mode": "SMALL",
+            "ram-mode": "LARGE",
             "rom-mode": "LARGE"
           },
           "c/cpp-compiler": {
@@ -69,7 +86,7 @@
           "linker": {
             "remove-unused": true,
             "output-format": "elf",
-            "misc-controls": ""
+            "use-RTX": "None"
           }
         }
       }

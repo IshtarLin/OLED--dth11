@@ -49,7 +49,7 @@
           <OutputName>Project</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\Listings\</ListingPath>
@@ -231,7 +231,7 @@
               <RCB>
                 <Type>0</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x0</Size>
+                <Size>0x10000</Size>
               </RCB>
               <RXB>
                 <Type>0</Type>
@@ -378,6 +378,31 @@
               <FileName>STC8G.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\STC8G.h</FilePath>
+            </File>
+            <File>
+              <FileName>Type_def.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Type_def.h</FilePath>
+            </File>
+            <File>
+              <FileName>Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Config.h</FilePath>
+            </File>
+            <File>
+              <FileName>OLED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\OLED.c</FilePath>
+            </File>
+            <File>
+              <FileName>OLED.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\OLED.h</FilePath>
+            </File>
+            <File>
+              <FileName>OLED_CONT.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\OLED_CONT.h</FilePath>
             </File>
           </Files>
         </Group>

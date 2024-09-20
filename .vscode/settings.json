@@ -1,1 +1,7 @@
-{}
+{
+    "files.associations": {
+        "stc8g.h": "c",
+        "STC8G.H": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
