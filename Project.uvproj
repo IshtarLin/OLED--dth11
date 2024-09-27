@@ -404,6 +404,16 @@
               <FileType>5</FileType>
               <FilePath>.\OLED_CONT.h</FilePath>
             </File>
+            <File>
+              <FileName>CK.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CK.c</FilePath>
+            </File>
+            <File>
+              <FileName>CK.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\CK.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

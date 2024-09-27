@@ -33,6 +33,18 @@
           },
           {
             "path": "OLED.h"
+          },
+          {
+            "path": "CK.c"
+          },
+          {
+            "path": "CK.h"
+          },
+          {
+            "path": "Delay.c"
+          },
+          {
+            "path": "Delay.h"
           }
         ],
         "folders": []
