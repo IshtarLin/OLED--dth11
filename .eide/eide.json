@@ -45,6 +45,18 @@
           },
           {
             "path": "Delay.h"
+          },
+          {
+            "path": "GPIO.c"
+          },
+          {
+            "path": "GPIO.h"
+          },
+          {
+            "path": "Dht.c"
+          },
+          {
+            "path": "Dht.h"
           }
         ],
         "folders": []
