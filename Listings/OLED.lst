@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 C51 COMPILER V9.54   OLED                                                                  09/24/2024 11:55:01 PAGE 1   
+=======
+C51 COMPILER V9.54   OLED                                                                  09/24/2024 21:25:38 PAGE 1   
+>>>>>>> part
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE OLED
@@ -62,7 +66,11 @@ line level    source
   52   1         I2CTXD=dat;
   53   1      
   54   1         I2CMSCR=0x02;
+<<<<<<< HEAD
 C51 COMPILER V9.54   OLED                                                                  09/24/2024 11:55:01 PAGE 2   
+=======
+C51 COMPILER V9.54   OLED                                                                  09/24/2024 21:25:38 PAGE 2   
+>>>>>>> part
 
   55   1         
   56   1         IIC_wait();
@@ -126,7 +134,11 @@ line level    source
  114   1      }
  115          
  116          
+<<<<<<< HEAD
 C51 COMPILER V9.54   OLED                                                                  09/24/2024 11:55:01 PAGE 3   
+=======
+C51 COMPILER V9.54   OLED                                                                  09/24/2024 21:25:38 PAGE 3   
+>>>>>>> part
 
  117          /*下面的抄的网络资源*/
  118          //设置显示坐标位置
@@ -190,7 +202,11 @@ line level    source
  176   2            OLED_Set_Pos(x,y+1);
  177   2      
  178   2            for(i=0;i<8;i++)
+<<<<<<< HEAD
 C51 COMPILER V9.54   OLED                                                                  09/24/2024 11:55:01 PAGE 4   
+=======
+C51 COMPILER V9.54   OLED                                                                  09/24/2024 21:25:38 PAGE 4   
+>>>>>>> part
 
  179   2      
  180   2            OLED_WR_Byte(OLED_F8x16[c*16+i+8],OLED_DATA);
@@ -254,7 +270,11 @@ line level    source
  238   1         OLED_WR_Byte(0xD3,OLED_CMD);//-set display offset Shift Mapping RAM Counter (0x00~0x3F)
  239   1      
  240   1         OLED_WR_Byte(0x00,OLED_CMD);//-not offset
+<<<<<<< HEAD
 C51 COMPILER V9.54   OLED                                                                  09/24/2024 11:55:01 PAGE 5   
+=======
+C51 COMPILER V9.54   OLED                                                                  09/24/2024 21:25:38 PAGE 5   
+>>>>>>> part
 
  241   1      
  242   1         OLED_WR_Byte(0xd5,OLED_CMD);//--set display clock divide ratio/oscillator frequency
@@ -298,9 +318,15 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
+<<<<<<< HEAD
    CODE SIZE        =    512    ----
    CONSTANT SIZE    =   1520    ----
    XDATA SIZE       =   ----    ----
+=======
+   CODE SIZE        =    510    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   1520    ----
+>>>>>>> part
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----       6
    IDATA SIZE       =   ----    ----
