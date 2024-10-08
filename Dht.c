@@ -1,6 +1,7 @@
 #include "Dht.h"
 #include "Delay.h"
 
+u8 Right_dat[8]; //正确数据存储
 /// @brief 初始化dht11的引脚
 /// @param 空
 void Dht_Init(void)
@@ -48,5 +49,44 @@ u8 Dht_recivebyte(void)
     }
     return dat;
 }
+/// @brief 40位数据的接收
+/// @param  空
+void Dht_recive(void)
+{
+    u8 Humi_High,Humi_low,Tem_High,Tem_low,verify,HumiH,HumiL,TemH,TemL;
+    Dht_start(); //发送起始信号
+
+    if(P11 == 0)
+    {
+        while (P11 == 0) //80us的应答信号
+        {
+            Delay_us(1);
+        }
+        Delay_us(60);//高电平输出80us通知外设准备接收数据
+        
+        Humi_High = Dht_recivebyte();
+        Humi_low = Dht_recivebyte();
+        Tem_High = Dht_recivebyte();
+        Tem_low = Dht_recivebyte();
+        verify = Dht_recivebyte();
+
+        Delay_us(40);  //50us的低电平作为结束信号
+
+        if(Humi_High + Humi_low + Tem_High + Tem_low == verify) //校验位判断
+        {
+            HumiH = Humi_High;
+            HumiL = Humi_low;
+            TemH = Tem_High;
+            TemL = Tem_low;
+        }
+        Right_dat[0] = HumiH; 
+        Right_dat[1] = HumiL;
+        Right_dat[2] = TemH;
+        Right_dat[3] = TemL;
+
+        
+    }
+}
+
 
 
