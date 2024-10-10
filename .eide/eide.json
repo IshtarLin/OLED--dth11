@@ -57,6 +57,12 @@
           },
           {
             "path": "Dht.h"
+          },
+          {
+            "path": "Timer.c"
+          },
+          {
+            "path": "Timer.h"
           }
         ],
         "folders": []
