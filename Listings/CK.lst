@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   CK                                                                    09/24/2024 21:25:38 PAGE 1   
+C51 COMPILER V9.54   CK                                                                    10/10/2024 15:16:29 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE CK
@@ -10,138 +10,168 @@ line level    source
 
    1          #include <STC8G.H>
    2          #include <CK.H>
-   3          #include <stdio.H>
-   4          #include "intrins.h"
-   5          //���ù�������
-   6          #define CK_Bti  115200          //���ô��ڲ�����
-   7          #define CK_FOSC  11059200       //��Ƭ������Ƶ�ʣ�Ĭ�ϣ�11.0592  (Ƶ��x10^6)��
-   8          #define CK_IntStrLen 20         //�������޸���
-   9          #define CK_FloatStrLen 20       //�����������޸���(Ĭ�ϱ�����λС��)
-  10          
-  11          #define CK_BRT  (65536 - CK_FOSC/ CK_Bti /4)
-  12          
-  13          bit CK_busy;                    //��æ��־
-  14          char CK_rjs;                    //���ջ������
-  15          char CK_ryjs;                   //�����Ķ�����
-  16          char CK_buffer[16];             //���ջ���
-  17          
-  18          //���ڳ�ʼ��
-  19          void CK_Init()
-  20          {
-  21   1              SCON=0x50;              //����1���ƼĴ���                   //����1����ģʽ_ģʽ1:�ɱ䲨���
+   3          #include "OLED.h"
+   4          #include <stdio.H>
+   5          #include "intrins.h"
+   6          //���ù�������
+   7          #define CK_Bti  115200          //���ô��ڲ�����
+   8          #define CK_FOSC  11059200       //��Ƭ������Ƶ��
+   9          #define CK_IntStrLen 20         //�������޸���
+  10          #define CK_FloatStrLen 20       //���������޸���
+  11          #define CK_Bufferlength 16  //��������С
+  12          #define CK_BRT  (65536 - CK_FOSC/ CK_Bti /4)
+  13          unsigned char temp;
+  14          bit CK_busy;                    //��æ��־
+  15          char CK_rjs;                    //���ջ������?
+  16          char CK_ryjs;                   //�����Ķ�����
+  17          char CK_buffer[CK_Bufferlength]={9};            //���ջ���
+  18          
+  19          //���ڳ�ʼ��
+  20          void CK_Init()
+  21          {
+  22   1              SCON=0x50;              //����1���ƼĴ���                   //����1����ģʽ_ģʽ1:�ɱ䲨���
              -���8λ���ݷ�ʽ and �������ڽ�������
-  22   1              TMOD=0x00;              //��ʱ��ģʽ�Ĵ���              //��ʱ��/������1����ģʽ:16λ
+  23   1              TMOD=0x00;              //��ʱ��ģʽ�Ĵ���              //��ʱ��/������1����ģʽ:16λ
              -�Զ�����ģʽ
-  23   1              TL1=CK_BRT;             //��ʱ��1�����Ĵ�������λ��
-  24   1              TH1=CK_BRT>>8;  //��ʱ��1�����Ĵ�������λ��
-  25   1              TR1=1;                  //��ʱ��T1�����п���λ  //��ʼ����
-  26   1              AUXR=0x40;              //�����Ĵ���1                   //��ʱ��1�ٶȿ���λ_CPUʱ�Ӳ���Ƶ��
+  24   1              TL1=CK_BRT;             //��ʱ��1�����Ĵ�������λ��
+  25   1              TH1=CK_BRT>>8;  //��ʱ��1�����Ĵ�������λ��
+  26   1              TR1=1;                  //��ʱ��T1�����п���λ  //��ʼ����
+  27   1              AUXR=0x40;              //�����Ĵ���1                   //��ʱ��1�ٶȿ���λ_CPUʱ�Ӳ���Ƶ��
              -��Ƶ(FOSC/1)
-  27   1              
-  28   1              ES=1;                   //����1�жϿ���                 //��
-  29   1              EA=1;                   //�ж��ܿ���                                //��
-  30   1              
-  31   1              CK_rjs=0x00;            
-  32   1              CK_ryjs=0x00;
-  33   1              CK_busy=0;
-  34   1      }
-  35          
-  36          //�����ַ���
-  37          void CK_SendStr(char *p)
-  38          {
-  39   1              while(*p)
-  40   1              {       
-  41   2                      CK_SendByte(*p++);
-  42   2              }       
-  43   1      }
-  44          
-  45          //�����ַ���(�Զ�����)
-  46          void CK_SendStrX(char *p)
-  47          {
-  48   1              while(*p)
-  49   1              {       
-  50   2                      CK_SendByte(*p++);
-  51   2              }
-C51 COMPILER V9.54   CK                                                                    09/24/2024 21:25:38 PAGE 2   
+  28   1              
+  29   1              ES=1;                   //����1�жϿ���                 //��
+  30   1              EA=1;                   //�ж��ܿ���                                //��
+  31   1              
+  32   1              CK_rjs=0x00;            
+  33   1              CK_ryjs=0x00;
+  34   1              CK_busy=0;
+  35   1      }
+  36          
+  37          
+  38          
+  39          
+  40          //�����ַ���
+  41          void CK_SendStr(char *p)
+  42          {
+  43   1              while(*p)
+  44   1              {       
+  45   2                      CK_SendByte(*p++);
+  46   2              }
+  47   1      }
+  48          
+  49          
+  50          //��������
+  51          void CK_SendInt(int num)
+C51 COMPILER V9.54   CK                                                                    10/10/2024 15:16:29 PAGE 2   
 
-  52   1              CK_SendStr("\r\n");
-  53   1      }
-  54          
-  55          //��������
-  56          void CK_SendInt(int num)
-  57          {
-  58   1              char str[CK_IntStrLen];
-  59   1              sprintf(str,"%d",num);
-  60   1              CK_SendStr(str);        
-  61   1      }
-  62          
-  63          //��������(�Զ�����)
-  64          void CK_SendIntX(int num)
-  65          {
-  66   1              char str[CK_IntStrLen];
-  67   1              sprintf(str,"%d",num);
-  68   1              CK_SendStrX(str);
-  69   1      }
-  70          
-  71          //���͸�����
-  72          void CK_SendFloat(float num)
-  73          {
-  74   1              char str[CK_FloatStrLen];
-  75   1              sprintf(str,"%.3f",num);
-  76   1              CK_SendStr(str);        
-  77   1      }
-  78          
-  79          //���͸�����(�Զ�����)
-  80          void CK_SendFloatX(float num)
-  81          {
-  82   1              char str[CK_FloatStrLen];
-  83   1              sprintf(str,"%.3f",num);
-  84   1              CK_SendStrX(str);
-  85   1      }
+  52          {
+  53   1              char str[CK_IntStrLen];
+  54   1              sprintf(str,"%d",num);
+  55   1              CK_SendStr(str);        
+  56   1      }
+  57          
+  58          
+  59          
+  60          //���͸�����
+  61          void CK_SendFloat(float num)
+  62          {
+  63   1              char str[CK_FloatStrLen];
+  64   1              sprintf(str,"%.3f",num);
+  65   1              CK_SendStr(str);        
+  66   1      }
+  67          
+  68          
+  69          
+  70          //�����ֽ�
+  71          void CK_SendByte(char Data)
+  72          {
+  73   1              while (CK_busy);
+  74   1              CK_busy = 1;
+  75   1              SBUF = Data;
+  76   1      }
+  77          
+  78          // void CK_Send(unsigned char CKdata[],unsigned int CKdata_len)
+  79          // {
+  80          //      int i=0;
+  81          //      for( i; i < CKdata_len; i++)
+  82          //      {
+  83          //              CK_SendByte(&CKdata[i]);
+  84          //      }
+  85          // }
   86          
-  87          //�����ֽ�
-  88          void CK_SendByte(char Data)
+  87          //���Է������ݸ���Ƭ���ַ��ظ�����
+  88          void CK_Read()
   89          {
-  90   1              while (CK_busy);
-  91   1              CK_busy = 1;
-  92   1              SBUF = Data;
-  93   1      }
-  94          
-  95          //����1�ж��¼�  ����Ĵ�����1
-  96          void UartIsr() interrupt 4 using 1   
-  97          {
-  98   1              if (TI)
-  99   1              {
- 100   2                      TI = 0;
- 101   2                      CK_busy = 0;
- 102   2              }
- 103   1              if (RI)
- 104   1              {
- 105   2                      RI = 0;
- 106   2                      CK_buffer[CK_rjs++] = SBUF;
- 107   2                      CK_rjs&=0x0f;   //��16��0
- 108   2              }
- 109   1      }
- 110          
- 111          //���Է������ݸ���Ƭ���ַ��ظ�����
- 112          void CK_Read()
- 113          {
-C51 COMPILER V9.54   CK                                                                    09/24/2024 21:25:38 PAGE 3   
+  90   1              static unsigned char temp = 0;
+  91   1              if (CK_ryjs!=CK_rjs)
+  92   1              {
+  93   2                      CK_SendByte(CK_buffer[CK_ryjs++]);
+  94   2                      CK_ryjs &= 0x0f;
+  95   2              }
+  96   1              if (temp !=CK_ryjs)
+  97   1              {
+  98   2                      OLED_ShowString(0,6,&CK_buffer[temp]);
+  99   2                      temp = CK_ryjs;
+ 100   2              }
+ 101   1              
+ 102   1      
+ 103   1      }
+ 104          //读取数据发送返�?
+ 105          void CK_SendBack()
+ 106          {
+ 107   1              static unsigned char temp = 0;
+ 108   1              int X = 0;
+ 109   1              for(;CK_ryjs!=CK_rjs;CK_ryjs++)
+ 110   1              {       
+ 111   2                      CK_SendByte(CK_buffer[CK_ryjs]);
+ 112   2                      CK_ryjs &= 0x0f;
+ 113   2              }
+C51 COMPILER V9.54   CK                                                                    10/10/2024 15:16:29 PAGE 3   
 
- 114   1              if (CK_ryjs!=CK_rjs)
+ 114   1              for(;temp!=CK_ryjs;temp++)
  115   1              {
- 116   2                      CK_SendByte(CK_buffer[CK_ryjs++]);
- 117   2                      CK_ryjs &= 0x0f;
- 118   2              }
- 119   1      }
+ 116   2                      
+ 117   2                      OLED_ShowChar(X,6,CK_buffer[temp]);
+ 118   2                      X=X+8;
+ 119   2              }
+ 120   1              // if (temp !=CK_ryjs)
+ 121   1              // {
+ 122   1              //      OLED_ShowString(0,6,&CK_buffer[temp]);
+ 123   1              //      temp = CK_ryjs;
+ 124   1              // }
+ 125   1              
+ 126   1      
+ 127   1      }
+ 128          //����1�ж��¼�  ����Ĵ�����?1
+ 129          void UartIsr() interrupt 4 using 1   
+ 130          {
+ 131   1              if (TI)
+ 132   1              {
+ 133   2                      
+ 134   2                      CK_busy = 0;
+ 135   2                      TI = 0;
+ 136   2              }
+ 137   1              if (RI)
+ 138   1              {
+ 139   2                      
+ 140   2                      if(CK_rjs >= CK_Bufferlength)
+ 141   2                      {
+ 142   3                              CK_rjs = 0;
+ 143   3                      }
+ 144   2                      CK_buffer[CK_rjs++] = SBUF;
+ 145   2                      RI = 0;
+ 146   2              }
+ 147   1      }
+ 148          // char CK_rjs;                 //���ջ������?
+ 149          // char CK_ryjs;        //�Ķ��������?
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    304    ----
-   CONSTANT SIZE    =     11    ----
+   CODE SIZE        =    295    ----
+   CONSTANT SIZE    =      8    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     18      86
+   DATA SIZE        =     21      45
    IDATA SIZE       =   ----    ----
    BIT SIZE         =      1    ----
 END OF MODULE INFORMATION.

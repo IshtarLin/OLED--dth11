@@ -1,0 +1,141 @@
+C51 COMPILER V9.54   DHT                                                                   10/10/2024 15:18:39 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE DHT
+OBJECT MODULE PLACED IN .\Objects\Dht.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE Dht.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\Dht.l
+                    -st) OBJECT(.\Objects\Dht.obj)
+
+line level    source
+
+   1          #include "Dht.h"
+   2          #include "Delay.h"
+   3          
+   4          u8 Right_dat[8]; //正确数据存储
+   5          /// @brief 初始化dht11的引脚
+   6          /// @param 空
+   7          void Dht_Init(void)
+   8          {
+   9   1          GPIO_InitTypeDef GPIO_InitStructure;
+  10   1          GPIO_InitStructure.Mode = GPIO_OUT_OD;//dht11要求开漏,这里小灯测试时改为了上拉
+  11   1          GPIO_InitStructure.Pin = GPIO_Pin_1;
+  12   1          GPIO_Inilize(GPIO_P1,&GPIO_InitStructure);
+  13   1          Delay_ms(1000);
+  14   1          P11 = 1;
+  15   1      }
+  16          /// @brief dht11起始信号
+  17          /// @param 空 
+  18          void Dht_start(void)
+  19          {   
+  20   1          P11 = 1;
+  21   1          Delay_us(1);
+  22   1          P11 = 0;
+  23   1          Delay_ms(25);//拉低延迟
+  24   1          P11 = 1;
+  25   1          Delay_us(30);//拉高延迟
+  26   1      }
+  27          /// @brief 主机从dht11接收一个字节
+  28          /// @param 空
+  29          /// @return 接收到的字节
+  30          u8 Dht_recivebyte(void)
+  31          {
+  32   1          u8 dat=0,i,j=0;
+  33   1          for(i = 0 ; i < 8 ; i++)//接收八位
+  34   1          {
+  35   2              while (P11)//等待低电平,dht11的回应信号
+  36   2              {
+  37   3                  Delay_us(1);
+  38   3                  if(++j==255) return 0; 
+  39   3              }
+  40   2              while (!P11)//固定的50us低电平
+  41   2              {
+  42   3                  Delay_us(1);
+  43   3                  if(++j==255) return 0; 
+  44   3              }
+  45   2              
+  46   2              Delay_us(60);//延迟50us,超出dht11 0数据的26~28us 还为高则数据为1
+  47   2              dat <<= 1;//移位，直接×2同理
+  48   2              if(P11 == 1)//不是1不操作。
+  49   2              {dat += 1;}
+  50   2      
+  51   2              while (P11)//等待数据线变低，以便接收下一个字节
+  52   2              {
+  53   3                  Delay_us(1);
+  54   3                  if(++j==255) return 0; 
+C51 COMPILER V9.54   DHT                                                                   10/10/2024 15:18:39 PAGE 2   
+
+  55   3              }
+  56   2          }
+  57   1          return dat;
+  58   1      }
+  59          /// @brief 40位数据的接收
+  60          /// @param  空
+  61          void Dht_recive(void)
+  62          {
+  63   1          u8 Humi_High,Humi_low,Tem_High,Tem_low,verify,HumiH,HumiL,TemH,TemL;
+  64   1          u8 j=0;
+  65   1          Dht_start(); //发送起始信号
+  66   1      
+  67   1          if(P11 == 0)
+  68   1          {
+  69   2              while (P11 == 0) //80us的应答信号
+  70   2              {
+  71   3                  Delay_us(1);
+  72   3                  if(++j==255) return; 
+  73   3              }
+  74   2              Delay_us(60);//高电平输出80us通知外设准备接收数据
+  75   2              
+  76   2              Humi_High = Dht_recivebyte();
+  77   2              Humi_low = Dht_recivebyte();
+  78   2              Tem_High = Dht_recivebyte();
+  79   2              Tem_low = Dht_recivebyte();
+  80   2              verify = Dht_recivebyte();
+  81   2      
+  82   2              Delay_us(30);  //50us的低电平作为结束信号
+  83   2      
+  84   2              if(Humi_High + Humi_low + Tem_High + Tem_low == verify) //校验位判断
+  85   2              {
+  86   3                  HumiH = Humi_High;
+  87   3                  HumiL = Humi_low;
+  88   3                  TemH = Tem_High;
+  89   3                  TemL = Tem_low;
+  90   3              }
+  91   2              Right_dat[0] = HumiH; 
+  92   2              Right_dat[1] = HumiL;
+  93   2              Right_dat[2] = TemH;
+  94   2              Right_dat[3] = TemL;
+  95   2      
+  96   2              
+  97   2          }
+  98   1      }
+  99          
+ 100          void Dht_recivedat(float *humi ,float *tem)
+ 101          {
+ 102   1          float temp = 0;
+ 103   1          Dht_recive();
+ 104   1          temp = Right_dat[1]/10.0f;
+ 105   1          temp += Right_dat[0];
+ 106   1          *humi = temp;
+ 107   1          temp = Right_dat[3]/10.0f;
+ 108   1          temp += Right_dat[2];
+ 109   1          *tem = temp;
+ 110   1          
+ 111   1      }
+ 112          
+ 113          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+C51 COMPILER V9.54   DHT                                                                   10/10/2024 15:18:39 PAGE 3   
+
+   CODE SIZE        =    440    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      8      25
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

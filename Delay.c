@@ -1,6 +1,6 @@
 #include	"config.h"
 
-void Delay_us(unsigned char j)	//@11.0592MHz
+void Delay_us(u16 j)	//@11.0592MHz
 {	
 	while (j--)
 	{
@@ -13,7 +13,7 @@ void Delay_us(unsigned char j)	//@11.0592MHz
 	
 	
 }
-void Delay_ms(unsigned char k)	//@11.0592MHz
+void Delay_ms(u16 k)	//@11.0592MHz
 {
 	while (k--)
 	{

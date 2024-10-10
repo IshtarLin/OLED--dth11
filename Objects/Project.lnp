@@ -1,6 +1,9 @@
 ".\Objects\STARTUP.obj",
 ".\Objects\main.obj",
 ".\Objects\OLED.obj",
-".\Objects\CK.obj" 
+".\Objects\CK.obj",
+".\Objects\Delay.obj",
+".\Objects\Dht.obj",
+".\Objects\GPIO.obj" 
 TO ".\Objects\Project" 
 PRINT(".\Listings\Project.m51") RAMSIZE(256) 
