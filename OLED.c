@@ -1,6 +1,6 @@
 #include "Config.h"
 #include "OLED_CONT.h"
-
+#include "stdio.h"
 
 #define OLED_CMD 0 //写命令
 #define OLED_DATA 1 //写数据
@@ -187,27 +187,38 @@ void OLED_ShowChar(u8 x,u8 y,u8 chr)
 //显示一个字符号串
 
 void OLED_ShowString(u8 x,u8 y,u8 *chr)
-
 {
-
    u8 j=0;
-
-   while (chr[j]!='\0')
-
-   {   
+   while (chr[j]!='\0'){   
       OLED_ShowChar(x,y,chr[j]);
-
       x+=8;
-
       if(x>120){x=0;y+=2;}
-
       j++;
-
    }
-
 }
 
 //初始化SSD1306                
+
+
+void OLED_ShowNum(u8 x, u8 y, float num)
+{
+   char str[100] = "";
+
+
+   sprintf(str, "%.3f", num);
+
+   
+
+
+   OLED_ShowString(x, y, str);
+
+
+}
+
+
+
+
+
 
 void OLED_Init(void)
 

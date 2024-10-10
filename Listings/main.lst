@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 C51 COMPILER V9.54   MAIN                                                                  09/24/2024 11:55:01 PAGE 1   
 =======
 C51 COMPILER V9.54   MAIN                                                                  09/24/2024 21:25:38 PAGE 1   
+>>>>>>> part
+=======
+C51 COMPILER V9.54   MAIN                                                                  10/10/2024 15:16:29 PAGE 1   
 >>>>>>> part
 
 
@@ -15,31 +19,42 @@ line level    source
    1          #include <STC8G.H>
    2          #include "OLED.h"
    3          #include "CK.H"
-   4          void main(void)
-   5          {
-   6   1              P_SW2 |= 0x80; 
-   7   1              init_IO();
-   8   1              init_IIC();
-   9   1              OLED_Init();
-  10   1              CK_Init();
-  11   1              OLED_ShowString(0,0,"2024/9/20");
-  12   1              OLED_ShowString(0,2,"Ishtar");
-  13   1              while(1)
-  14   1              {
-  15   2                      CK_SendIntX(123456);
-  16   2                      CK_SendFloatX(123.456);
-  17   2                      CK_SendStr("ABCD");
-  18   2              }
-  19   1              
-  20   1      }
+   4          #include "Delay.H"
+   5          #include "Dht.h"
+   6          float Get_humi=69.12,Get_tem=22.86;
+   7          void main(void)
+   8          {
+   9   1              P_SW2 |= 0x80; 
+  10   1              init_IO();
+  11   1              init_IIC();
+  12   1              OLED_Init();
+  13   1              CK_Init();
+  14   1              Dht_Init();
+  15   1              Delay_ms(1000);
+  16   1              OLED_ShowString(0,0,"Tem:");
+  17   1              OLED_ShowString(0,2,"Humi:");
+  18   1              OLED_ShowString(0,4,"CK_message:");
+  19   1              while(1)
+  20   1              {       
+  21   2                      Delay_ms(1000);
+  22   2                      CK_SendBack();
+  23   2                      OLED_ShowNum(32,0,Get_tem);
+  24   2                      OLED_ShowNum(40,2,Get_humi);
+  25   2                      Dht_recivedat(&Get_humi,&Get_tem);
+  26   2                      
+  27   2                      Delay_ms(1000);
+  28   2                      
+  29   2              }
+  30   1              
+  31   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     69    ----
-   CONSTANT SIZE    =     22    ----
+   CODE SIZE        =    138    ----
+   CONSTANT SIZE    =     23    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----    ----
+   DATA SIZE        =      8    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
