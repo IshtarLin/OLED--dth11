@@ -43,7 +43,7 @@ u8 Dht_recivebyte(void)
             if(++j==255) return 0; 
         }
         
-        Delay_us(50);//延迟50us,超出dht11 0数据的26~28us 还为高则数据为1
+        Delay_us(25);//延迟50us,超出dht11 0数据的26~28us 还为高则数据为1
         dat<<=1;//移位，直接×2同理
         if(P11 == 1)//不是1不操作。
         {dat += 1;}
@@ -101,10 +101,10 @@ void Dht_recivedat(float *humi ,float *tem)
 {
     float temp = 0;
     Dht_recive();
-    temp = Right_dat[1]/10.0f;
+    temp = Right_dat[1];
     temp += Right_dat[0];
     *humi = temp;
-    temp = Right_dat[3]/10.0f;
+    temp = Right_dat[3];
     temp += Right_dat[2];
     *tem = temp;
     

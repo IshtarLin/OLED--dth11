@@ -3,7 +3,7 @@
 #include "Config.h"
 #include "GPIO.h"
 
-
+extern u8 Right_dat[];
 
 void Dht_Init(void);
 void Dht_start(void);
