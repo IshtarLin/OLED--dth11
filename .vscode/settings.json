@@ -4,7 +4,8 @@
         "STC8G.H": "cpp",
         "config.h": "c",
         "delay.h": "c",
-        "ck.h": "c"
+        "ck.h": "c",
+        "task.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
