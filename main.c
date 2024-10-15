@@ -5,7 +5,7 @@
 #include "Dht.h"
 #include "Timer.h"
 #include "task.h"
-extern Get_humi, Get_tem;
+extern float Get_humi, Get_tem;
 
 void main(void)
 {
