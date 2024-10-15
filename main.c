@@ -5,7 +5,8 @@
 #include "Dht.h"
 #include "Timer.h"
 #include "task.h"
-float Get_humi = 69.12, Get_tem = 22.86;
+extern Get_humi, Get_tem;
+
 void main(void)
 {
     P_SW2 |= 0x80;

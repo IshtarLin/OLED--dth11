@@ -1,9 +1,11 @@
 #include "task.h"
 
+
+
 static Task_Control Task_Ctl[] =
-    {
-        // 执行与否 计数 重装 函数
-        {0, 5000, 5000, Dht_recivedat},
+{
+    // 执行与否 计数 重装 函数
+    {0, 5000, 5000, Task_Dht11},
 };
 
 u8 Tasks_Max = sizeof(Task_Ctl) / sizeof(Task_Ctl[0]);
@@ -35,7 +37,7 @@ void Task_Start_Callback(void)
     {
         if (Task_Ctl[i].run == 1)
         {
-            Task_Ctl[i].TaskFunc();
+            Task_Ctl[i].TaskHook();
             Task_Ctl[i].run = 0;
         }
     }

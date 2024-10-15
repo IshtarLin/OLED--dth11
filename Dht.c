@@ -1,6 +1,6 @@
 #include "Dht.h"
 #include "Delay.h"
-
+float Get_humi = 10, Get_tem = 10;
 u8 Right_dat[8]; //正确数据存储
 /// @brief 初始化dht11的引脚
 /// @param 空
@@ -110,4 +110,8 @@ void Dht_recivedat(float *humi ,float *tem)
     
 }
 
+void Task_Dht11(void)
+{
+    Dht_recivedat(&Get_humi,&Get_tem);
+}
 

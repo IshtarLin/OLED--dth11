@@ -10,4 +10,5 @@ void Dht_start(void);
 u8 Dht_recivebyte(void);
 void Dht_recive(void);
 void Dht_recivedat(float *humi ,float *tem);
+void Task_Dht11(void);
 #endif
