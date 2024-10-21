@@ -1,5 +1,5 @@
 #include "Dht.h"
-#include "Delay.h"
+
 float Get_humi = 10, Get_tem = 10;
 u8 Right_dat[8]; //正确数据存储
 /// @brief 初始化dht11的引脚

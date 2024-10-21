@@ -1,4 +1,4 @@
-#include	"config.h"
+#include "Delay.h"
 
 void Delay_us(u16 j)	//@11.0592MHz
 {	

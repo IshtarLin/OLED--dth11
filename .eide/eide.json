@@ -14,61 +14,61 @@
             "path": "STARTUP.A51"
           },
           {
-            "path": "main.c"
+            "path": "User/Config.h"
           },
           {
-            "path": "STC8G.h"
+            "path": "User/main.c"
           },
           {
-            "path": "Type_def.h"
+            "path": "User/STC8G.h"
           },
           {
-            "path": "Config.h"
+            "path": "User/Type_def.h"
           },
           {
-            "path": "OLED_CONT.h"
+            "path": "User/task.c"
           },
           {
-            "path": "OLED.c"
+            "path": "User/task.h"
           },
           {
-            "path": "OLED.h"
+            "path": "Dirve/src/CK.c"
           },
           {
-            "path": "CK.c"
+            "path": "Dirve/inc/CK.h"
           },
           {
-            "path": "CK.h"
+            "path": "Dirve/src/Delay.c"
           },
           {
-            "path": "Delay.c"
+            "path": "Dirve/inc/Delay.h"
           },
           {
-            "path": "Delay.h"
+            "path": "Dirve/src/Dht.c"
           },
           {
-            "path": "GPIO.c"
+            "path": "Dirve/inc/Dht.h"
           },
           {
-            "path": "GPIO.h"
+            "path": "Dirve/src/GPIO.c"
           },
           {
-            "path": "Dht.c"
+            "path": "Dirve/inc/GPIO.h"
           },
           {
-            "path": "Dht.h"
+            "path": "Dirve/src/OLED.c"
           },
           {
-            "path": "Timer.c"
+            "path": "Dirve/inc/OLED.h"
           },
           {
-            "path": "Timer.h"
+            "path": "Dirve/inc/OLED_CONT.h"
           },
           {
-            "path": "task.c"
+            "path": "Dirve/src/Timer.c"
           },
           {
-            "path": "task.h"
+            "path": "Dirve/inc/Timer.h"
           }
         ],
         "folders": []
@@ -100,9 +100,14 @@
       "custom_dep": {
         "name": "default",
         "incList": [
-          "../../../../../Keil_v5/C51/INC/STC"
+          "../../../../../Keil_v5/C51/INC/STC",
+          "User",
+          "Dirve/inc",
+          "Dirve/src"
         ],
-        "libList": [],
+        "libList": [
+          "User"
+        ],
         "defineList": []
       },
       "builderOptions": {

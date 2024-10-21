@@ -1,6 +1,8 @@
 #ifndef __DHT_H_
 #define __DHT_H_
+
 #include "Config.h"
+#include "Delay.h"
 #include "GPIO.h"
 
 extern u8 Right_dat[];

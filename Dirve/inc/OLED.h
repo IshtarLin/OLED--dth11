@@ -1,6 +1,9 @@
 #ifndef __OLED_H__
 #define __OLED_H__
 
+#include "Config.h"
+#include "stdio.h"
+
 void init_IO();
 void init_IIC();
 void OLED_Init(void);

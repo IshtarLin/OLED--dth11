@@ -4,8 +4,9 @@
 
 static Task_Control Task_Ctl[] =
 {
-    // 执行与否 计数 重装 函数
-    {0, 5000, 5000, Task_Dht11},
+    // 执行与否 计数 重装 函数'
+    {0, 1000, 1000, Task_Dht11},
+    {0, 100, 100, Task_OLED},
 };
 
 u8 Tasks_Max = sizeof(Task_Ctl) / sizeof(Task_Ctl[0]);
@@ -36,9 +37,10 @@ void Task_Start_Callback(void)
     for (i = 0; i < Tasks_Max; i++)
     {
         if (Task_Ctl[i].run == 1)
-        {
-            Task_Ctl[i].TaskHook();
+        {   
             Task_Ctl[i].run = 0;
+            Task_Ctl[i].TaskHook();
+            
         }
     }
 }

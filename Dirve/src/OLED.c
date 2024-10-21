@@ -1,6 +1,5 @@
-#include "Config.h"
+#include "OLED.h"
 #include "OLED_CONT.h"
-#include "stdio.h"
 
 #define OLED_CMD 0 //写命令
 #define OLED_DATA 1 //写数据
@@ -203,16 +202,8 @@ void OLED_ShowString(u8 x,u8 y,u8 *chr)
 void OLED_ShowNum(u8 x, u8 y, float num)
 {
    char str[100] = "";
-
-
    sprintf(str, "%.3f", num);
-
-   
-
-
    OLED_ShowString(x, y, str);
-
-
 }
 
 
