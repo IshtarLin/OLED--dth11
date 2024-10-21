@@ -32,43 +32,43 @@
             "path": "User/task.h"
           },
           {
-            "path": "Dirve/src/CK.c"
+            "path": "Drive/src/CK.c"
           },
           {
-            "path": "Dirve/inc/CK.h"
+            "path": "Drive/inc/CK.h"
           },
           {
-            "path": "Dirve/src/Delay.c"
+            "path": "Drive/src/Delay.c"
           },
           {
-            "path": "Dirve/inc/Delay.h"
+            "path": "Drive/inc/Delay.h"
           },
           {
-            "path": "Dirve/src/Dht.c"
+            "path": "Drive/src/Dht.c"
           },
           {
-            "path": "Dirve/inc/Dht.h"
+            "path": "Drive/inc/Dht.h"
           },
           {
-            "path": "Dirve/src/GPIO.c"
+            "path": "Drive/src/GPIO.c"
           },
           {
-            "path": "Dirve/inc/GPIO.h"
+            "path": "Drive/inc/GPIO.h"
           },
           {
-            "path": "Dirve/src/OLED.c"
+            "path": "Drive/src/OLED.c"
           },
           {
-            "path": "Dirve/inc/OLED.h"
+            "path": "Drive/inc/OLED.h"
           },
           {
-            "path": "Dirve/inc/OLED_CONT.h"
+            "path": "Drive/inc/OLED_CONT.h"
           },
           {
-            "path": "Dirve/src/Timer.c"
+            "path": "Drive/src/Timer.c"
           },
           {
-            "path": "Dirve/inc/Timer.h"
+            "path": "Drive/inc/Timer.h"
           }
         ],
         "folders": []
@@ -102,8 +102,8 @@
         "incList": [
           "../../../../../Keil_v5/C51/INC/STC",
           "User",
-          "Dirve/inc",
-          "Dirve/src"
+          "Drive/inc",
+          "Drive/src"
         ],
         "libList": [
           "User"
